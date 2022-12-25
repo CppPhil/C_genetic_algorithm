@@ -1,0 +1,3 @@
+#pragma once
+#define DEFAULT_POPULATION_SIZE 200
+#define DEFAULT_ITERATION_COUNT 100
