@@ -85,14 +85,11 @@ Population populationCreateNext(
 
     if (!populationAppend(&nextPopulation, selected1, chromosomeLength)) {
       chromosomeDestroy(selected2);
-      chromosomeDestroy(selected1);
       populationDestroy(nextPopulation);
       return failure();
     }
 
     if (!populationAppend(&nextPopulation, selected2, chromosomeLength)) {
-      chromosomeDestroy(selected2);
-      chromosomeDestroy(selected1);
       populationDestroy(nextPopulation);
       return failure();
     }
@@ -112,24 +109,18 @@ void populationDestroy(Population population)
 
 bool populationAppend(
   Population* population,
-  const char* chromosome,
+  char*       chromosome,
   size_t      chromosomeLength)
 {
-  char* newChromosome = chromosomeDuplicate(chromosome, chromosomeLength);
-
-  if (newChromosome == NULL) {
-    return false;
-  }
-
   char** newChromosomes = (char**)realloc(
     population->chromosomes, (population->size + 1) * sizeof(char*));
 
   if (newChromosomes == NULL) {
-    chromosomeDestroy(newChromosome);
+    chromosomeDestroy(chromosome);
     return false;
   }
 
-  newChromosomes[population->size] = newChromosome;
+  newChromosomes[population->size] = chromosome;
   population->chromosomes          = newChromosomes;
   ++(population->size);
   return true;

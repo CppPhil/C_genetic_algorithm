@@ -29,7 +29,7 @@ void populationDestroy(Population population);
 
 bool populationAppend(
   Population* population,
-  const char* chromosome,
+  char*       chromosome,
   size_t      chromosomeLength);
 
 char* populationPickHighestFitnessChromosome(
