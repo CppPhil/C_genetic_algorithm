@@ -54,6 +54,12 @@ Population populationCreateNext(
   while (nextPopulation.size < population.size) {
     SelectedChromosomes selectedChromosomes
       = populationSelect(population, fitnesses);
+
+    if (!selectedChromosomesOk(selectedChromosomes)) {
+      populationDestroy(nextPopulation);
+      return failure();
+    }
+
     char* selected1
       = chromosomeDuplicate(selectedChromosomes.first, chromosomeLength);
 
